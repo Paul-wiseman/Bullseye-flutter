@@ -1,3 +1,4 @@
+import 'package:bullseye/control.dart';
 import 'package:bullseye/prompt/prompt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,6 +41,7 @@ class _GamePageState extends State<GamePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children:  <Widget> [
        const Prompt(targetValue: 1000),
+          const Control(),
           TextButton(
               onPressed:(){
                 _alertIsVisible = true;
