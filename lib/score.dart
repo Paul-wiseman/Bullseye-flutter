@@ -1,3 +1,6 @@
+import 'package:bullseye/about.dart';
+import 'package:bullseye/buttons/style_button.dart';
+import 'package:bullseye/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class Score extends StatelessWidget {
@@ -12,31 +15,37 @@ class Score extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        TextButton(
-            onPressed: () {
-              onStartOver();
-            },
-            child: const Text('Start Over')),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children:  [
-             const Text('Score '),
-              Text('$totalScore'),
-            ],
+      StyledButton(
+          icon: Icons.refresh,
+          onPressed: (){onStartOver();}
+      ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 32, right: 32.0),
+            child: Column(
+              children:  [
+                Text('Score ', style: LabelTextStyle.bodyText1(context)),
+                Text('$totalScore', style: ScoreNumberTextStyle.headLine4(context), ),
+              ],
+            ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
+          padding: const EdgeInsets.only(left: 32.0, right: 32.0),
+          child: Column(
             children:  [
-            const  Text('Round '),
-              Text('$round')
+              Text('Round ', style: LabelTextStyle.bodyText1(context),),
+              Text('$round', style: ScoreNumberTextStyle.headLine4(context),)
             ],
           ),
         ),
 
-        TextButton(onPressed: () {}, child: const Text('Info')
+        StyledButton(
+          icon: Icons.info,
+            onPressed: () {
+            Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const AboutPage()));
+            },
         )
       ],
     );

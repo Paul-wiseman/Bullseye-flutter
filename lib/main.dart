@@ -1,10 +1,12 @@
 import 'package:bullseye/control/control.dart';
 import 'package:bullseye/game_model.dart';
+import 'package:bullseye/hit_me_button.dart';
 import 'package:bullseye/score.dart';
 import 'package:bullseye/prompt/prompt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
+import 'buttons/style_button.dart';
 
 void main() {
   runApp(const BullEyeApp());
@@ -55,23 +57,24 @@ class _GamePageState extends State<GamePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Prompt(targetValue: _model.target),
-              Control(model: _model),
-              TextButton(
-                onPressed: () {
-                  _showAlert(context);
-                },
-                child: const Text(
-                  'Hit Me!',
-                  style: TextStyle(
-                    color: Colors.blue,
-                  ),
-                ),
+              Padding(
+                padding: const EdgeInsets.only(top: 48.0,bottom:32.0 ),
+                child: Prompt(targetValue: _model.target),
               ),
-              Score(
-                  totalScore: _model.totalScore,
-                  round: _model.round,
-                  onStartOver: _startNewGame)
+              Control(model: _model),
+             Padding(
+               padding: const EdgeInsets.only(top: 16.0),
+               child: HitMeButton(text: 'HIT ME', onPressed: (){
+                 _showAlert(context);
+               }),
+             ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Score(
+                    totalScore: _model.totalScore,
+                    round: _model.round,
+                    onStartOver: _startNewGame),
+              )
             ],
           ),
         ),
@@ -120,7 +123,8 @@ class _GamePageState extends State<GamePage> {
   }
 
   void _showAlert(BuildContext context) {
-    var okButton = TextButton(
+    var okButton = StyledButton(
+        icon:Icons.close,
         onPressed: () {
           Navigator.pop(context);
           setState(() {
@@ -129,7 +133,8 @@ class _GamePageState extends State<GamePage> {
             _model.round += 1;
           });
         },
-        child: const Text('Awesome!'));
+    );
+
 
     showDialog(
         context: context,
